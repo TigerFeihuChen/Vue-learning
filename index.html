@@ -1,0 +1,88 @@
+<html>
+    <head>
+        <title>AppCool</title>
+        <link rel="stylesheet" type="text/css" href="style.css">
+    </head>
+
+    <body>
+        <div id="app">
+            <div id="appCool" v-cloak>
+                <h1 v-text="appName" v-cloak :class="[headerClass, fontClass]"></h1>
+                <div>
+                    <input type="text" v-model.lazy="keyword" placeholder="Search ...">
+                </div>
+                <div>The keywrod is: {{ keyword }}</div>
+                <div>
+                    <label>
+                        <input type="checkbox" v-model="isChecked">
+                        Please check me
+                    <label>
+                </div>
+
+                <div>
+                    <label>
+                        <input value="No.1" type="checkbox" v-model="selectedValues">
+                        No.1
+                    </label>
+                    <label>
+                        <input value="No.2" type="checkbox" v-model="selectedValues">
+                        No.2
+                    </label>
+                    <label>
+                        <input value="No.3" type="checkbox" v-model="selectedValues">
+                        No.3
+                    </label>
+                    <label>
+                        <input value="No.4" type="checkbox" v-model="selectedValues">
+                        No.4
+                    </label>
+                </div>
+                <div>
+                    Selected values: {{ selectedValues }}
+                </div>
+                <div>
+                    <select v-model="selectedOption">
+                        <option value="apple">Apple</option>
+                        <option value="orange">Orange</option>
+                        <option value="watermelon">Watermelon</option>
+                    </select>
+                </div>
+                <div>
+                    Selected option: {{ selectedOption }}
+                </div>
+            </div>
+            <div id="tiger" v-cloak>
+                <h1 v-once v-cloak>{{appName}}</h1>
+                <div v-cloak>
+                    <!--
+                        for v-if each time the value changes the elements
+                        and all of their children, will be destroyed,
+                        and re-constructed. Think about performance on large
+                        components
+                        If something is unlikely to change after a rendering,
+                        it is better to use a v-if
+                    -->
+                    <div v-if="numberOfApple === 0">There is no apple</div>
+                    <div v-else-if="numberOfApple === 1">There is an apple</div>
+                    <div v-else>There is {{ numberOfApple }} apples</div>
+                </div>
+                <div v-cloak>
+                    <!-- always render the html element, but toggling the
+                        display style base on expression. performance friendly.
+                    -->
+                    <div v-show="numberOfApple > 0">We have apple</div>
+                </div>
+                <div v-if="numberOfApple > 0">
+                    <ul>
+                        <!--
+                            The num starts from 1 NOT 0
+                        -->
+                        <li v-for="num in numberOfApple">Apple Number {{num}}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </body>
+    <script type="text/javascript" src="http://unpkg.com/vue"></script>
+    <script type="text/javascript" src="script.js"></script>
+</html>
