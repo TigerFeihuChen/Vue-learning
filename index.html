@@ -1,6 +1,7 @@
 <html>
     <head>
         <title>AppCool</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
         <link rel="stylesheet" type="text/css" href="style.css">
     </head>
 
@@ -53,6 +54,9 @@
             </div>
             <div id="tiger" v-cloak>
                 <h1 v-once v-cloak>{{appName}}</h1>
+                <div>
+                    <input type="button" v-on:click="addApple()" value="Add an apple"/>
+                </div>
                 <div v-cloak>
                     <!--
                         for v-if each time the value changes the elements
@@ -72,7 +76,7 @@
                     -->
                     <div v-show="numberOfApple > 0">We have apple</div>
                 </div>
-                <div v-if="numberOfApple > 0">
+                <div v-if="hasApple">
                     <ul>
                         <!--
                             The num starts from 1 NOT 0

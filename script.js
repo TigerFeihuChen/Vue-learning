@@ -48,11 +48,30 @@ var tiger = new Vue({
     el: '#tiger',
     data: {
         appName: 'Tiger',
-        numberOfApple: Math.floor((Math.random() * 3))
+        numberOfApple: 0 //Math.floor((Math.random() * 3))
     },
 
-    method: {
+    methods: {
+        addApple: function(){
+            this.numberOfApple += 1;
+            this.hasApple = true;
+        }
+    },
 
+    computed: {
+        hasApple:{
+            get: function() {
+                return this.numberOfApple > 0;
+            },
+            set: function(value) {
+                // using setter in computed property is a great way to impose validation on values.
+                if(this.numberOfApple > 10){
+                    console.log("Basket is full");
+                    this.numberOfApple = 10;
+                }
+
+            }
+        }
     },
 
     beforeCreate: function(){
