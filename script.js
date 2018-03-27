@@ -55,12 +55,20 @@ var tiger = new Vue({
         addApple: function(){
             this.numberOfApple += 1;
             this.hasApple = true;
+        },
+
+        reduceApple: function(){
+            this.numberOfApple -= 1;
         }
     },
 
     computed: {
         hasApple:{
             get: function() {
+                if (this.numberOfApple < 0){
+                    console.log("Basket is empty");
+                    this.numberOfApple = 0;
+                }
                 return this.numberOfApple > 0;
             },
             set: function(value) {
