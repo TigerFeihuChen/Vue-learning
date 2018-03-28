@@ -48,7 +48,20 @@ var tiger = new Vue({
     el: '#tiger',
     data: {
         appName: 'Tiger',
-        numberOfApple: 0 //Math.floor((Math.random() * 3))
+        numberOfApple: 0,
+        accountData: [
+            { accountName: 'Tiger Chen', balance: 12000, accountType: 'Orange everyday' },
+            { accountName: 'Cherie Liu', balance: 5000, accountType: 'Saving Maximiser' },
+            { accountName: 'Emma Chen', balance: 125000, accountType: 'Term deposie', termInMonth: 24 },
+            { accountName: 'Natalie Chen', balance: 126000, accountType: 'Term deposie', termInMonth: 12 },
+            { accountName: 'River Yang', balance: 2200000, accountType: 'Home loan', loanTermInMonth: 480 },
+            { accountName: 'Hong Zhang', balance: 88000.55, accountType: 'Orange everyday' },
+            { accountName: 'Lebron James', balance: 89000000, accountType: 'Orange everyday' },
+            { accountName: 'Stephe Curry', balance: 66688000.89, accountType: 'Orange everyday' },
+            { accountName: 'Ryan Carney', balance: 900987445, accountType: 'Personal loan' }
+        ],
+        accounts: [],
+        selectedType: 'All types'
     },
 
     methods: {
@@ -59,6 +72,17 @@ var tiger = new Vue({
 
         reduceApple: function() {
             this.numberOfApple -= 1;
+        },
+
+        filterTypeAccountType: function(selectedType) {
+            if (selectedType !== 'All types') {
+                this.accounts = this.accountData.filter(function(item) {
+                    return item.accountType === selectedType;
+                });
+            }
+            else{
+                this.accounts = this.accountData;
+            }
         }
     },
 
@@ -79,27 +103,38 @@ var tiger = new Vue({
                 }
 
             }
+        },
+
+        accountTypeList: function() {
+            var distinctTypes = this.accountData.map(item => item.accountType)
+                .filter((value, index, self) => self.indexOf(value) === index)
+
+            if (distinctTypes.length > 0) {
+                distinctTypes.splice(0, 0, 'All types');
+            }
+
+            return distinctTypes;
         }
     },
+
+    watch: {
+        selectedType: function(newValue) {
+            if (newValue) {
+                this.filterTypeAccountType(newValue);
+            }
+        }
+    },
+
     filters: {
 
         // filter cannot be used in v-html or v-text directive
         // filters are added to the $options after instantiation
-        makeAppleJuice: function(value) {
-            if (value % 3 === 0) {
-                return 'a glass of apple juice';
-            }
-
-            return value;
+        removeLastName: function(fullName) {
+            return fullName.slice(0, fullName.indexOf(' ') + 2);
         },
 
-        drinkAppleJuice: function(value) {
-            console.log(value);
-            if (value % 3 === 0) {
-                return value.replace('a glass', 'a empty glass');
-            }
-
-            return value;
+        convertToMoney: function(balance) {
+            return balance.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,');
         }
     },
 
@@ -108,7 +143,7 @@ var tiger = new Vue({
     },
 
     created: function() {
-        // alert('tiger created');
+        this.accounts = this.accountData;
     },
 
     beforeMount: function() {

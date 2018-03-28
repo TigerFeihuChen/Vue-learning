@@ -1,13 +1,15 @@
 <html>
-    <head>
-        <title>AppCool</title>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
-        <link rel="stylesheet" type="text/css" href="style.css">
-    </head>
 
-    <body>
-        <div id="app">
-            <div id="appCool" v-cloak>
+<head>
+    <title>AppCool</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body>
+    <div id="app" class="container">
+        <div class="row">
+            <div id="appCool" v-cloak class="col">
                 <h1 v-text="appName" v-cloak :class="[headerClass, fontClass]"></h1>
                 <div>
                     <input type="text" v-model.lazy="keyword" placeholder="Search ...">
@@ -15,27 +17,21 @@
                 <div>The keywrod is: {{ keyword }}</div>
                 <div>
                     <label>
-                        <input type="checkbox" v-model="isChecked">
-                        Please check me
-                    <label>
+                        <input type="checkbox" v-model="isChecked"> Please check me
+                        <label>
                 </div>
-
                 <div>
                     <label>
-                        <input value="No.1" type="checkbox" v-model="selectedValues">
-                        No.1
+                        <input value="No.1" type="checkbox" v-model="selectedValues"> No.1
                     </label>
                     <label>
-                        <input value="No.2" type="checkbox" v-model="selectedValues">
-                        No.2
+                        <input value="No.2" type="checkbox" v-model="selectedValues"> No.2
                     </label>
                     <label>
-                        <input value="No.3" type="checkbox" v-model="selectedValues">
-                        No.3
+                        <input value="No.3" type="checkbox" v-model="selectedValues"> No.3
                     </label>
                     <label>
-                        <input value="No.4" type="checkbox" v-model="selectedValues">
-                        No.4
+                        <input value="No.4" type="checkbox" v-model="selectedValues"> No.4
                     </label>
                 </div>
                 <div>
@@ -52,11 +48,13 @@
                     Selected option: {{ selectedOption }}
                 </div>
             </div>
-            <div id="tiger" v-cloak>
+        </div>
+        <div class="row">
+            <div id="tiger" v-cloak class="col">
                 <h1 v-once v-cloak>{{appName}}</h1>
                 <div>
-                    <input type="button" v-on:click="addApple()" value="Add an apple"/>
-                    <input type="button" v-on:click="reduceApple" value="Reduce an apple"/>
+                    <input type="button" v-on:click="addApple()" value="Add an apple" />
+                    <input type="button" v-on:click="reduceApple" value="Reduce an apple" />
                 </div>
                 <div v-cloak>
                     <!--
@@ -82,12 +80,28 @@
                         <!--
                             The num starts from 1 NOT 0
                         -->
-                        <li v-for="num in numberOfApple">Apple Number {{num | makeAppleJuice | drinkAppleJuice}}</li>
+                        <li v-for="num in numberOfApple">Apple Number {{num}}</li>
                     </ul>
                 </div>
+                <h2>Accounts list</h2>
+                <div>
+                    <label>Filter by account type</label>
+                    <div v-for="accType in accountTypeList">
+                        <input type="radio" v-bind:id="accType" v-model="selectedType" v-bind:value="accType" name="filterByAccountType">
+                        <label v-bind:for="accType">{{accType}}</label>
+                    </div>
+                </div>
+                <div v-for="account in accounts">
+                    <ul>
+                        <li>{{account.accountName | removeLastName}} - ${{account.balance | convertToMoney}} - {{account.accountType}}</li>
+                    </ul>
+                </div>
+                <div on-cloak>Total: {{accounts.length}}</div>
             </div>
         </div>
-    </body>
-    <script type="text/javascript" src="http://unpkg.com/vue"></script>
-    <script type="text/javascript" src="script.js"></script>
+    </div>
+</body>
+<script type="text/javascript" src="http://unpkg.com/vue"></script>
+<script type="text/javascript" src="script.js"></script>
+
 </html>
