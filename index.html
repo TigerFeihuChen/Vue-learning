@@ -82,7 +82,7 @@
                         <!--
                             The num starts from 1 NOT 0
                         -->
-                        <li v-for="num in numberOfApple">Apple Number {{num}}</li>
+                        <li v-for="num in numberOfApple">Apple Number {{num | makeAppleJuice | drinkAppleJuice}}</li>
                     </ul>
                 </div>
             </div>

@@ -12,34 +12,34 @@ var appCool = new Vue({
         appName: 'AppCool',
         headerClass: 'header',
         fontClass: 'fontStyle',
-        keyword:'',
+        keyword: '',
         isChecked: false,
-        selectedValues:[],
-        selectedOption:'orange'
+        selectedValues: [],
+        selectedOption: 'orange'
     },
 
-    beforeCreate: function(){
+    beforeCreate: function() {
         // alert('appCool before create');
     },
 
-    created: function(){
+    created: function() {
         // alert('appCool created');
     },
 
-    beforeMount: function(){
+    beforeMount: function() {
         // alert('appCool before mount');
     },
 
-    mounted: function(){
+    mounted: function() {
         // alert('appCool mounted');
     },
 
-    beforeUpdate: function(){
+    beforeUpdate: function() {
         // alert('appCool before update');
         console.log("isChecked is changed to " + this.isChecked);
     },
 
-    updated: function(){
+    updated: function() {
         // alert('appCool updated');
     },
 });
@@ -52,20 +52,20 @@ var tiger = new Vue({
     },
 
     methods: {
-        addApple: function(){
+        addApple: function() {
             this.numberOfApple += 1;
             this.hasApple = true;
         },
 
-        reduceApple: function(){
+        reduceApple: function() {
             this.numberOfApple -= 1;
         }
     },
 
     computed: {
-        hasApple:{
+        hasApple: {
             get: function() {
-                if (this.numberOfApple < 0){
+                if (this.numberOfApple < 0) {
                     console.log("Basket is empty");
                     this.numberOfApple = 0;
                 }
@@ -73,7 +73,7 @@ var tiger = new Vue({
             },
             set: function(value) {
                 // using setter in computed property is a great way to impose validation on values.
-                if(this.numberOfApple > 10){
+                if (this.numberOfApple > 10) {
                     console.log("Basket is full");
                     this.numberOfApple = 10;
                 }
@@ -81,28 +81,49 @@ var tiger = new Vue({
             }
         }
     },
+    filters: {
 
-    beforeCreate: function(){
+        // filter cannot be used in v-html or v-text directive
+        // filters are added to the $options after instantiation
+        makeAppleJuice: function(value) {
+            if (value % 3 === 0) {
+                return 'a glass of apple juice';
+            }
+
+            return value;
+        },
+
+        drinkAppleJuice: function(value) {
+            console.log(value);
+            if (value % 3 === 0) {
+                return value.replace('a glass', 'a empty glass');
+            }
+
+            return value;
+        }
+    },
+
+    beforeCreate: function() {
         // alert('tiger before create');
     },
 
-    created: function(){
+    created: function() {
         // alert('tiger created');
     },
 
-    beforeMount: function(){
+    beforeMount: function() {
         // alert('tiger before mount');
     },
 
-    mounted: function(){
+    mounted: function() {
         // alert('tiger mounted');
     },
 
-    beforeUpdate: function(){
+    beforeUpdate: function() {
         // alert('tiger before update');
     },
 
-    updated: function(){
+    updated: function() {
         // alert('tiger updated');
     },
 });
